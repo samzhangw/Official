@@ -1,0 +1,143 @@
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全國會考落點分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">全國會考落點分析</div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">首頁</a></li>
+                <li><a href="#regions">各區查詢</a></li>
+                <li><a href="#faq">常見問題</a></li>
+                <li><a href="#contact">聯絡我們</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header>
+        <div class="container">
+            <h1>全國會考落點分析</h1>
+            <p>幫助您找到最適合的學校選擇</p>
+        </div>
+    </header>
+
+    <section class="main-content container">
+        <div class="intro">
+            <h2>歡迎使用全國會考落點分析系統</h2>
+            <p>本系統提供全國各區會考落點分析，幫助學生和家長根據會考成績規劃最適合的學校選擇。</p>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>精準分析</h3>
+                <p>根據歷年資料提供精準的落點分析</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-school"></i>
+                <h3>學校資訊</h3>
+                <p>提供各校詳細資訊與錄取分數</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-calculator"></i>
+                <h3>成績模擬</h3>
+                <p>輸入成績立即查看適合的學校選擇</p>
+            </div>
+        </div>
+
+        <div class="regions" id="regions">
+            <h2>各區落點分析系統</h2>
+            <div class="region-cards" id="region-cards">
+                <!-- Region cards will be dynamically loaded here -->
+                <div class="loading-spinner">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <p>載入中...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq container" id="faq">
+        <h2>常見問題</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">會考成績如何轉換為積分？</div>
+                <div class="accordion-content">
+                    <p>會考各科成績轉換積分方式如下：<br>
+                    A++：7分<br>
+                    A+：6分<br>
+                    A：5分<br>
+                    B++：4分<br>
+                    B+：3分<br>
+                    B：2分<br>
+                    C：1分<br>
+                    各校依照總積分及比序項目進行錄取。</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">如何使用落點分析系統？</div>
+                <div class="accordion-content">
+                    <p>只要在上方的成績輸入區填入您的各科成績，選擇想查詢的地區，點擊「查詢適合學校」按鈕，系統就會根據歷年資料，顯示您可能錄取的學校清單。</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">落點分析的準確度如何？</div>
+                <div class="accordion-content">
+                    <p>本系統根據教育部公開的歷年錄取資料進行分析，提供參考用途。實際錄取結果仍受當年度考生分布、志願選填策略等因素影響，建議將本系統作為選校參考，而非唯一依據。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="copyright-year"></span> 全國會考落點分析系統 | 資料僅供參考，實際錄取結果依教育主管機關公告為準</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="floating-actions">
+        <button class="fab-button theme-toggle" aria-label="切換深色模式">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="fab-button quick-access-toggle" aria-label="快速查詢">
+            <i class="fas fa-bolt"></i>
+        </button>
+        <button class="fab-button back-to-top" aria-label="回到頂部">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <div class="quick-access">
+        <h3>快速查詢</h3>
+        <div class="quick-access-links">
+            <a href="https://tyctw.github.io/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 桃聯區查詢
+            </a>
+            <a href="https://cchctw.github.io/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 彰化區查詢
+            </a>
+            <a href="https://ctttw.github.io/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 中投區查詢
+            </a>
+            <a href="https://khhtw.github.io/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 高雄區查詢
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
