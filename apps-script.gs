@@ -58,3 +58,25 @@ function doPost(e) {
     "data": data
   })).setMimeType(ContentService.MimeType.JSON);
 }
+
+function verifyHCaptcha(token) {
+  // Replace with your hCaptcha secret key
+  var secret = "0x4f5199f1a87264eC256e0B92907691b3f8D166a0";
+  var url = "https://hcaptcha.com/siteverify";
+
+  var payload = {
+    secret: secret,
+    response: token
+  };
+
+  var options = {
+    method: "post",
+    payload: payload
+  };
+
+  var response = UrlFetchApp.fetch(url, options);
+  var json = response.getContentText();
+  var result = JSON.parse(json);
+
+  return result.success;
+}

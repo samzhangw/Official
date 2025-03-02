@@ -180,6 +180,12 @@ function handleContactFormSubmit(event) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
+    const hCaptchaResponse = hcaptcha.getResponse();
+
+    if (!hCaptchaResponse) {
+        alert('請完成機器人驗證。');
+        return;
+    }
 
     // Replace with your Google Apps Script deployment URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
@@ -189,6 +195,7 @@ function handleContactFormSubmit(event) {
     formData.append('name', name);
     formData.append('email', email);
     formData.append('message', message);
+    formData.append('hCaptchaResponse', hCaptchaResponse);
 
     fetch(scriptURL, {
         method: 'POST',
@@ -203,6 +210,9 @@ function handleContactFormSubmit(event) {
         document.getElementById('name').value = '';
         document.getElementById('email').value = '';
         document.getElementById('message').value = '';
+
+        // Reset hCaptcha
+        hcaptcha.reset();
     })
     .catch(error => {
         console.error('Error!', error.message);
