@@ -167,7 +167,48 @@ document.addEventListener('DOMContentLoaded', function() {
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
     });
+
+    // Handle contact form submission
+    const contactForm = document.querySelector('.contact-form');
+    contactForm.addEventListener('submit', handleContactFormSubmit);
 });
+
+// Function to handle contact form submission
+function handleContactFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Replace with your Google Apps Script deployment URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
+
+    // Create form data
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('message', message);
+
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Bypass CORS issues in client-side scripts
+    })
+    .then(response => {
+        console.log('Success!', response);
+        alert('訊息已成功送出！'); // Notify the user of successful submission
+
+        // Clear the form
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+    })
+    .catch(error => {
+        console.error('Error!', error.message);
+        alert('訊息傳送失敗，請稍後再試。'); // Notify the user of submission failure
+    });
+}
 
 // Function to fetch regions data from Google Apps Script
 function fetchRegionsData() {

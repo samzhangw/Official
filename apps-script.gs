@@ -32,3 +32,29 @@ function doGet() {
   .setMimeType(ContentService.MimeType.JSON)
   .setHeader('Access-Control-Allow-Origin', '*');
 }
+
+function doPost(e) {
+  // Get the form data
+  var data = e.parameter;
+
+  // Log the data to the script's execution log (optional)
+  Logger.log(JSON.stringify(data));
+
+  // Replace with your Google Sheet ID
+  var ss = SpreadsheetApp.openById("13a46z6n5t1jKW8a8GGUuXJzD618bEwQ5bC7n8WbIqH8");
+  var sheet = ss.getSheetByName("回應");
+
+  // Append the data to the sheet
+  sheet.appendRow([
+    data.name,
+    data.email,
+    data.message,
+    new Date() // Timestamp
+  ]);
+
+  // Return a success message (optional)
+  return ContentService.createTextOutput(JSON.stringify({
+    "result": "success",
+    "data": data
+  })).setMimeType(ContentService.MimeType.JSON);
+}
