@@ -1,48 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
-    
-    // Close mobile menu when clicking a link
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            document.body.classList.remove('menu-open');
-            
-            // Added: Update active class on menu items
-            navLinks.forEach(navLink => navLink.classList.remove('active'));
-            link.classList.add('active');
-        });
-    });
-    
-    // Create and add a close button to the menu
-    const closeButton = document.createElement('div');
-    closeButton.className = 'menu-close';
-    closeButton.innerHTML = '<i class="fas fa-times"></i>';
-    navMenu.prepend(closeButton);
-    
-    // Add event listener to close button
-    closeButton.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        document.body.classList.remove('menu-open');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (navMenu.classList.contains('active') && 
-            !navMenu.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            navMenu.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
-    });
-    
     // Handle accordion functionality
     const accordionItems = document.querySelectorAll('.accordion-item');
     
@@ -60,55 +16,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Enhanced animations for header elements with staggered effect
+    // Remove all animation-related code
+    
+    // Remove header elements animations
     const headerElements = document.querySelectorAll('header h1, header p');
     headerElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.animation = index === 0 
-                ? 'fadeInDown 1.2s ease-out forwards' 
-                : 'fadeInUp 1.5s ease-out forwards';
-        }, index * 300);
+        el.style.opacity = '1';
+        el.style.animation = 'none';
     });
     
-    // Enhanced animation for feature items
+    // Remove intro section animations
+    const introTitle = document.querySelector('.intro h2');
+    const introDesc = document.querySelector('.intro > p');
+    if (introTitle && introDesc) {
+        [introTitle, introDesc].forEach((el, index) => {
+            el.style.opacity = '1';
+            el.style.animation = 'none';
+        });
+    }
+    
+    // Remove feature items animations
     const featureItems = document.querySelectorAll('.feature-item');
     featureItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(40px)';
-        item.style.transition = `opacity 0.8s ease-out ${index * 0.2}s, transform 0.8s ease-out ${index * 0.2}s`;
-        item.classList.add('animate-on-scroll');
+        item.style.opacity = '1';
+        item.style.transform = 'none';
+        item.style.transition = 'none';
+        item.classList.remove('animate-on-scroll');
     });
     
-    // Fetch regions data from Google Apps Script
-    fetchRegionsData();
+    // Remove intro items animations
+    const introItems = document.querySelectorAll('.intro-item');
+    introItems.forEach((item, index) => {
+        item.style.opacity = '1';
+        item.style.transform = 'none';
+        item.style.transition = 'none';
+        item.classList.remove('animate-on-scroll');
+    });
     
-    // Improved scroll animation
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.animate-on-scroll');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.1;
-            
-            if(elementPosition < screenPosition) {
-                element.classList.add('animate-visible');
-            }
-        });
-    };
+    // Remove scroll animation functionality
     
-    // Initial check and add scroll event listener
-    animateOnScroll();
-    window.addEventListener('scroll', animateOnScroll);
-
-    // Parallax effect for header
-    window.addEventListener('scroll', function() {
+    // Remove parallax effect
+    window.removeEventListener('scroll', function() {
         const header = document.querySelector('header');
-        const scrollPosition = window.scrollY;
-        header.style.backgroundPosition = `center ${scrollPosition * 0.5}px`;
+        header.style.backgroundPosition = 'center center';
     });
-
+    
     // Add touchstart event for better mobile experience
     const touchItems = document.querySelectorAll('.feature-item, .region-card, .btn, .accordion-header');
     touchItems.forEach(item => {
@@ -194,13 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
             quickAccess.classList.remove('active');
             quickAccessToggle.innerHTML = '<i class="fas fa-bolt"></i>';
         }
-        
-        if (navMenu.classList.contains('active') && 
-            !navMenu.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            navMenu.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
     });
     
     // Add viewport height fix for mobile browsers
@@ -211,6 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setMobileHeight();
     window.addEventListener('resize', setMobileHeight);
+
+    // Fetch regions data from Google Apps Script
+    fetchRegionsData();
 });
 
 // Function to fetch regions data from Google Apps Script
@@ -235,35 +183,16 @@ function fetchRegionsData() {
                 regionCardsContainer.appendChild(regionCard);
             });
             
-            // Reinitialize animations for the new cards
+            // Remove animations for the new cards
             const newRegionCards = document.querySelectorAll('.region-card');
             newRegionCards.forEach((card, index) => {
-                card.style.animationDelay = (index * 0.15) + 's';
-                card.classList.add('animate-on-scroll');
+                card.style.animationDelay = '0s';
+                card.classList.remove('animate-on-scroll');
                 
-                // Add floating animation
-                setInterval(() => {
-                    card.style.transform = 'translateY(-5px)';
-                    setTimeout(() => {
-                        card.style.transform = 'translateY(0)';
-                    }, 1000);
-                }, 3000 + (index * 1000));
+                // Remove floating animation
+                clearInterval(); // Clear any animation intervals
+                card.style.transform = 'none';
             });
-            
-            // Trigger animation check
-            const animateOnScroll = function() {
-                const elements = document.querySelectorAll('.animate-on-scroll');
-                
-                elements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.1;
-                    
-                    if(elementPosition < screenPosition) {
-                        element.classList.add('animate-visible');
-                    }
-                });
-            };
-            animateOnScroll();
         })
         .catch(error => {
             console.error('Error fetching regions data:', error);
@@ -279,7 +208,7 @@ function fetchRegionsData() {
         });
 }
 
-// Function to create a region card element
+// Function to create a region card element with enhanced design
 function createRegionCard(region) {
     const card = document.createElement('div');
     card.className = 'region-card';
