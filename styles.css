@@ -47,7 +47,7 @@ body {
 
 .navbar .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -59,6 +59,7 @@ body {
     -webkit-text-fill-color: transparent;
     transition: var(--transition);
     padding: 5px 0;
+    text-decoration: none;
 }
 
 .logo:hover {

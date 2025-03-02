@@ -159,6 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fetch regions data from Google Apps Script
     fetchRegionsData();
+
+    // Handle menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
 });
 
 // Function to fetch regions data from Google Apps Script
