@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to fetch regions data from Google Apps Script
 function fetchRegionsData() {
     const regionCardsContainer = document.getElementById('region-cards');
-    const appScriptUrl = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
+    const appScriptUrl = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
     
     fetch(appScriptUrl)
         .then(response => {
