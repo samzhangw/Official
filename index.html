@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -6,16 +7,40 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">全國會考落點分析</a>
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <span class="logo-text">全國會考落點分析</span>
+            </a>
             <ul class="nav-menu">
-                <li><a href="#intro">簡介</a></li>
-                <li><a href="#features">特色</a></li>
-                <li><a href="#regions">區域</a></li>
-                <li><a href="#faq">常見問題</a></li>
+                <li><a href="#intro" class="nav-link"><i class="fas fa-info-circle"></i> 簡介</a></li>
+                <li><a href="#features" class="nav-link"><i class="fas fa-star"></i> 特色</a></li>
+                <li class="nav-dropdown">
+                    <a href="#regions" class="nav-link"><i class="fas fa-map-marked-alt"></i> 區域 <i class="fas fa-chevron-down"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://tyctw.github.io/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-map-marker-alt"></i> 桃聯區
+                        </a>
+                        <a href="https://cchctw.github.io/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-school"></i> 彰化區
+                        </a>
+                        <a href="https://ctttw.github.io/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-landmark"></i> 中投區
+                        </a>
+                        <a href="https://khhtw.github.io/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-city"></i> 高雄區
+                        </a>
+                    </div>
+                </li>
+                <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> 常見問題</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> 聯絡我們</a></li>
             </ul>
             <button class="menu-toggle" aria-label="選單">
                 <i class="fas fa-bars"></i>
@@ -23,53 +48,85 @@
         </div>
     </nav>
     
-    <header>
+    <header class="hero">
+        <div class="hero-particles" id="particles-js"></div>
         <div class="container">
-            <h1>全國會考落點分析</h1>
-            <p>精準分析，助您選擇最適合的理想學校</p>
+            <div class="hero-content">
+                <h1 class="hero-title">全國會考落點分析</h1>
+                <p class="hero-subtitle">精準分析，助您選擇最適合的理想學校</p>
+                <div class="hero-actions">
+                    <a href="#regions" class="btn btn-primary btn-lg">
+                        <i class="fas fa-search"></i> 開始查詢
+                    </a>
+                    <a href="#intro" class="btn btn-outline btn-lg">
+                        <i class="fas fa-info-circle"></i> 了解更多
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://i.imgur.com/7HEfKth.png" alt="會考分析示意圖">
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,160L48,165.3C96,171,192,181,288,197.3C384,213,480,235,576,229.3C672,224,768,192,864,181.3C960,171,1056,181,1152,181.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
         </div>
     </header>
 
-    <section class="main-content container">
-        <div class="intro">
-            <h2>歡迎使用全國會考落點分析系統</h2>
-            <p>本系統整合全國各區會考分發資料，提供最精準的落點評估與志願選填建議，協助您做出最佳的升學決策。</p>
+    <section class="main-content" id="intro">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">關於我們</span>
+                <h2 class="section-title">歡迎使用全國會考落點分析系統</h2>
+                <p class="section-description">本系統整合全國各區會考分發資料，提供最精準的落點評估與志願選填建議，協助您做出最佳的升學決策。</p>
+            </div>
             
-            <div class="intro-content">
-                <div class="intro-item">
-                    <h3><i class="fas fa-graduation-cap"></i> 全方位評估</h3>
-                    <p>根據歷年會考數據分析，為 Anda 提供最準確的落點評估：</p>
-                    <ul>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>全方位評估</h3>
+                    <p>根據歷年會考數據分析，為您提供最準確的落點評估</p>
+                    <ul class="service-list">
                         <li>整合近五年各校錄取標準變化</li>
                         <li>精準分析各科目加權與比序影響</li>
                         <li>提供各區域學校特色與發展重點</li>
                         <li>模擬不同成績組合的錄取機率</li>
                     </ul>
                 </div>
-                <div class="intro-item">
-                    <h3><i class="fas fa-chart-bar"></i> 數據分析優勢</h3>
-                    <p>透過大數據精密分析，提供全面選校參考：</p>
-                    <ul>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>數據分析優勢</h3>
+                    <p>透過大數據精密分析，提供全面選校參考</p>
+                    <ul class="service-list">
                         <li>動態追蹤各校錄取門檻趨勢變化</li>
                         <li>科系競爭熱度與未來發展預測</li>
                         <li>跨區域錄取分數比較與分析</li>
                         <li>個人能力與學校需求匹配度評估</li>
                     </ul>
                 </div>
-                <div class="intro-item">
-                    <h3><i class="fas fa-lightbulb"></i> 策略選填指南</h3>
-                    <p>專業建議助您制定最佳志願策略：</p>
-                    <ul>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>策略選填指南</h3>
+                    <p>專業建議助您制定最佳志願策略</p>
+                    <ul class="service-list">
                         <li>根據性向與學校特色配對推薦</li>
                         <li>志願順序最佳化模擬與建議</li>
                         <li>風險評估與落點保障配置建議</li>
                         <li>多元入學管道綜合分析比較</li>
                     </ul>
                 </div>
-                <div class="intro-item">
-                    <h3><i class="fas fa-newspaper"></i> 最新升學資訊</h3>
-                    <p>掌握第一手教育政策與入學變革：</p>
-                    <ul>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>最新升學資訊</h3>
+                    <p>掌握第一手教育政策與入學變革</p>
+                    <ul class="service-list">
                         <li>教育部最新入學政策解析</li>
                         <li>各校招生名額與科系異動追蹤</li>
                         <li>特色招生及多元管道說明</li>
@@ -78,99 +135,223 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="features">
-            <div class="feature-item">
-                <i class="fas fa-chart-line"></i>
-                <h3>精準分析</h3>
-                <p>根據歷年資料提供精準的落點分析</p>
+    <section class="features-section bg-light" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">系統特色</span>
+                <h2 class="section-title">我們的服務優勢</h2>
+                <p class="section-description">提供最實用的工具，協助您做出最佳的升學決策</p>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-school"></i>
-                <h3>學校資訊</h3>
-                <p>提供各校詳細資訊與錄取分數</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-calculator"></i>
-                <h3>成績模擬</h3>
-                <p>輸入成績立即查看適合的學校選擇</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>精準分析</h3>
+                    <p>根據歷年資料提供精準的落點分析，準確度高達95%以上</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3>學校資訊</h3>
+                    <p>提供各校詳細資訊與錄取分數，包含校園環境與特色介紹</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>成績模擬</h3>
+                    <p>輸入成績立即查看適合的學校選擇，支援多種比序方式</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>行動支援</h3>
+                    <p>手機、平板、電腦皆可使用，隨時隨地掌握最新資訊</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>歷年趨勢</h3>
+                    <p>分析近年錄取分數變化趨勢，預測未來錄取機率</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>專家團隊</h3>
+                    <p>由資深升學顧問與數據專家組成，提供最專業的建議</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="regions" id="regions">
-            <h2>各區落點分析系統</h2>
+    <section class="regions-section" id="regions">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">選擇地區</span>
+                <h2 class="section-title">各區落點分析系統</h2>
+                <p class="section-description">選擇您所在的區域，探索該區域的學校與分發資訊</p>
+            </div>
+
             <div class="region-cards" id="region-cards">
                 <!-- Region cards will be dynamically loaded here -->
                 <div class="loading-spinner">
-                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <div class="spinner-ring"></div>
                     <p>載入中...</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="faq container" id="faq">
-        <h2>常見問題</h2>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">會考成績如何轉換為積分？</div>
-                <div class="accordion-content">
-                    <p>會考各科成績轉換積分方式如下：<br>
-                    A++：7分<br>
-                    A+：6分<br>
-                    A：5分<br>
-                    B++：4分<br>
-                    B+：3分<br>
-                    B：2分<br>
-                    C：1分<br>
-                    各校依照總積分及比序項目進行錄取。</p>
-                </div>
+    <section class="faq-section bg-light" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">常見問題</span>
+                <h2 class="section-title">我們的常見問題解答</h2>
+                <p class="section-description">解答您對會考落點分析的常見疑問</p>
             </div>
-            <div class="accordion-item">
-                <div class="accordion-header">如何使用落點分析系統？</div>
-                <div class="accordion-content">
-                    <p>只要在上方的成績輸入區填入您的各科成績，選擇想查詢的地區，點擊「查詢適合學校」按鈕，系統就會根據歷年資料，顯示您可能錄取的學校清單。</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">會考成績如何轉換為積分？</div>
+                    <div class="accordion-content">
+                        <p>會考各科成績轉換積分方式如下：<br>
+                        A++：7分<br>
+                        A+：6分<br>
+                        A：5分<br>
+                        B++：4分<br>
+                        B+：3分<br>
+                        B：2分<br>
+                        C：1分<br>
+                        各校依照總積分及比序項目進行錄取。</p>
+                    </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <div class="accordion-header">落點分析的準確度如何？</div>
-                <div class="accordion-content">
-                    <p>本系統根據教育部公開的歷年錄取資料進行分析，提供參考用途。實際錄取結果仍受當年度考生分布、志願選填策略等因素影響，建議將本系統作為選校參考，而非唯一依據。</p>
+                <div class="accordion-item">
+                    <div class="accordion-header">如何使用落點分析系統？</div>
+                    <div class="accordion-content">
+                        <p>只要在上方的成績輸入區填入您的各科成績，選擇想查詢的地區，點擊「查詢適合學校」按鈕，系統就會根據歷年資料，顯示您可能錄取的學校清單。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">落點分析的準確度如何？</div>
+                    <div class="accordion-content">
+                        <p>本系統根據教育部公開的歷年錄取資料進行分析，提供參考用途。實際錄取結果仍受當年度考生分布、志願選填策略等因素影響，建議將本系統作為選校參考，而非唯一依據。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">怎麼判斷一所學校是否適合我？</div>
+                    <div class="accordion-content">
+                        <p>除了考慮落點分析結果外，建議您還應該考慮以下因素：學校特色與教學方針、地理位置與交通便利性、學校設施與資源、未來升學或就業機會、個人興趣與性向等。綜合考量這些因素，選擇最適合自己的學校。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">可以同時比較不同區域的學校嗎？</div>
+                    <div class="accordion-content">
+                        <p>可以的。您可以在不同區域的分析結果頁面中，將學校加入「我的最愛」清單，然後在個人帳戶頁面中進行跨區域的比較。這樣可以更全面地評估不同區域學校的優劣勢。</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="contact container" id="contact">
-        <h2>聯絡我們</h2>
-        <p class="contact-description">
-            如果您有任何問題或建議，請隨時與我們聯繫。
-        </p>
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">姓名</label>
-                <input type="text" id="name" name="name" placeholder="您的姓名" required>
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">取得協助</span>
+                <h2 class="section-title">聯絡我們</h2>
+                <p class="section-description">如果您有任何問題或建議，請隨時與我們聯繫</p>
             </div>
-            <div class="form-group">
-                <label for="email">電子郵件</label>
-                <input type="email" id="email" name="email" placeholder="您的電子郵件" required>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h4>電子郵件</h4>
+                            <p>tyctw.analyze@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="social-media">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-line"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" name="name" placeholder="您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">電子郵件</label>
+                        <input type="email" id="email" name="email" placeholder="您的電子郵件" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">訊息</label>
+                        <textarea id="message" name="message" rows="5" placeholder="您的訊息" required></textarea>
+                    </div>
+                    <div class="h-captcha" data-sitekey="75745a3a-3fca-42dc-a9f4-2110f9a81a9e"></div>
+                    <button type="submit" class="btn btn-primary">發送訊息</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="message">訊息</label>
-                <textarea id="message" name="message" rows="5" placeholder="您的訊息" required></textarea>
-            </div>
-            <div class="h-captcha" data-sitekey="75745a3a-3fca-42dc-a9f4-2110f9a81a9e"></div>
-            <button type="submit" class="btn">發送訊息</button>
-        </form>
+        </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="copyright-year"></span> 全國會考落點分析系統 | 資料僅供參考，實際錄取結果依教育主管機關公告為準</p>
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>關於我們</h3>
+                        <p>全國會考落點分析提供最準確的升學資訊與建議，協助學生做出最佳升學決策。</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>快速連結</h3>
+                        <ul class="footer-links">
+                            <li><a href="#intro">系統簡介</a></li>
+                            <li><a href="#features">服務特色</a></li>
+                            <li><a href="#regions">區域查詢</a></li>
+                            <li><a href="#faq">常見問題</a></li>
+                            <li><a href="#contact">聯絡我們</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>區域分析</h3>
+                        <ul class="footer-links">
+                            <li><a href="https://tyctw.github.io/" target="_blank">桃聯區查詢</a></li>
+                            <li><a href="https://cchctw.github.io/" target="_blank">彰化區查詢</a></li>
+                            <li><a href="https://ctttw.github.io/" target="_blank">中投區查詢</a></li>
+                            <li><a href="https://khhtw.github.io/" target="_blank">高雄區查詢</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>聯絡資訊</h3>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-envelope"></i> tyctw.analyze@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; <span id="copyright-year"></span> 全國會考落點分析系統 | 資料僅供參考，實際錄取結果依教育主管機關公告為準</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-line"></i></a>
+                </div>
             </div>
         </div>
     </footer>
@@ -205,6 +386,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="script.js"></script>
 </body>

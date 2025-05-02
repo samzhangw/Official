@@ -1,109 +1,205 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle accordion functionality
+    // 設置Particles.js (如果存在)
+    if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    }
+
+    // 導航欄滾動效果
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // 下拉選單在移動設備上的處理
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    if (window.innerWidth <= 992) {
+        navDropdowns.forEach(dropdown => {
+            const dropdownLink = dropdown.querySelector('a');
+            
+            dropdownLink.addEventListener('click', function(e) {
+                // 只有在移動設備模式下才阻止默認行為
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+    }
+
+    // 處理手風琴功能
     const accordionItems = document.querySelectorAll('.accordion-item');
     
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+        
+        // 設置內容的最大高度
+        if(item.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
         
         header.addEventListener('click', () => {
             const currentlyActive = document.querySelector('.accordion-item.active');
             
             if(currentlyActive && currentlyActive !== item) {
                 currentlyActive.classList.remove('active');
+                currentlyActive.querySelector('.accordion-content').style.maxHeight = null;
             }
             
             item.classList.toggle('active');
+            
+            if(item.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = null;
+            }
         });
     });
     
-    // Remove all animation-related code
-    
-    // Remove header elements animations
-    const headerElements = document.querySelectorAll('header h1, header p');
-    headerElements.forEach((el, index) => {
-        el.style.opacity = '1';
-        el.style.animation = 'none';
-    });
-    
-    // Remove intro section animations
-    const introTitle = document.querySelector('.intro h2');
-    const introDesc = document.querySelector('.intro > p');
-    if (introTitle && introDesc) {
-        [introTitle, introDesc].forEach((el, index) => {
-            el.style.opacity = '1';
-            el.style.animation = 'none';
-        });
-    }
-    
-    // Remove feature items animations
-    const featureItems = document.querySelectorAll('.feature-item');
-    featureItems.forEach((item, index) => {
-        item.style.opacity = '1';
-        item.style.transform = 'none';
-        item.style.transition = 'none';
-        item.classList.remove('animate-on-scroll');
-    });
-    
-    // Remove intro items animations
-    const introItems = document.querySelectorAll('.intro-item');
-    introItems.forEach((item, index) => {
-        item.style.opacity = '1';
-        item.style.transform = 'none';
-        item.style.transition = 'none';
-        item.classList.remove('animate-on-scroll');
-    });
-    
-    // Remove scroll animation functionality
-    
-    // Remove parallax effect
-    window.removeEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        header.style.backgroundPosition = 'center center';
-    });
-    
-    // Add touchstart event for better mobile experience
-    const touchItems = document.querySelectorAll('.feature-item, .region-card, .btn, .accordion-header');
-    touchItems.forEach(item => {
-        item.addEventListener('touchstart', function() {
-            this.style.opacity = '0.8';
-            setTimeout(() => {
-                this.style.opacity = '1';
-            }, 150);
-        }, {passive: true});
-    });
-
-    // Handle dark mode toggle
+    // 處理深色模式切換
     const themeToggle = document.querySelector('.theme-toggle');
     
-    // Check for saved theme preference or respect OS preference
+    // 檢查儲存的主題偏好或尊重系統偏好
     const savedTheme = localStorage.getItem('theme');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
         document.body.classList.add('dark-mode');
+        updateThemeIcon();
     }
     
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         
-        // Save theme preference
+        // 儲存主題偏好
         if (document.body.classList.contains('dark-mode')) {
             localStorage.setItem('theme', 'dark');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         } else {
             localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
+        
+        updateThemeIcon();
     });
     
-    // Update icon based on current theme
-    if (document.body.classList.contains('dark-mode')) {
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    } else {
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    function updateThemeIcon() {
+        if (document.body.classList.contains('dark-mode')) {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
     }
     
-    // Handle back to top button
+    // 處理回到頂部按鈕
     const backToTopButton = document.querySelector('.back-to-top');
     
     window.addEventListener('scroll', () => {
@@ -121,10 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Update copyright year automatically
+    // 更新版權年份
     document.getElementById('copyright-year').textContent = new Date().getFullYear();
     
-    // Handle quick access toggle
+    // 處理快速訪問切換
     const quickAccessToggle = document.querySelector('.quick-access-toggle');
     const quickAccess = document.querySelector('.quick-access');
     
@@ -138,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close quick access panel when clicking outside
+    // 點擊外部關閉快速訪問面板
     document.addEventListener('click', (e) => {
         if (quickAccess.classList.contains('active') && 
             !quickAccess.contains(e.target) && 
@@ -148,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add viewport height fix for mobile browsers
+    // 添加viewport高度修復，適用於移動瀏覽器
     const setMobileHeight = () => {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -157,25 +253,85 @@ document.addEventListener('DOMContentLoaded', function() {
     setMobileHeight();
     window.addEventListener('resize', setMobileHeight);
 
-    // Fetch regions data from Google Apps Script
+    // 獲取區域數據
     fetchRegionsData();
 
-    // Handle menu toggle
+    // 處理選單切換
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
+        if (navMenu.classList.contains('active')) {
+            menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
     });
 
-    // Handle contact form submission
+    // 處理聯繫表單提交
     const contactForm = document.querySelector('.contact-form');
     contactForm.addEventListener('submit', handleContactFormSubmit);
+
+    // 滾動到區塊時的平滑效果
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            // 只處理內部導航連結
+            if (this.classList.contains('nav-link') && !this.parentElement.classList.contains('nav-dropdown')) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果導航選單是開啟的，關閉它
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    
+                    // 更新活動導航項目
+                    document.querySelectorAll('.nav-menu a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            }
+        });
+    });
+
+    // 滾動時更新活動導航項目
+    const sections = document.querySelectorAll('section[id]');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (pageYOffset >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        document.querySelectorAll('.nav-menu a').forEach(navItem => {
+            navItem.classList.remove('active');
+            if (navItem.getAttribute('href') === `#${current}`) {
+                navItem.classList.add('active');
+            }
+        });
+    });
 });
 
-// Function to handle contact form submission
+// 處理聯繫表單提交
 function handleContactFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); // 防止表單默認提交
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
@@ -187,40 +343,51 @@ function handleContactFormSubmit(event) {
         return;
     }
 
-    // Replace with your Google Apps Script deployment URL
+    // Google Apps Script部署URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
 
-    // Create form data
+    // 創建表單數據
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('message', message);
     formData.append('hCaptchaResponse', hCaptchaResponse);
 
+    // 顯示提交中狀態
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+
     fetch(scriptURL, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors' // Bypass CORS issues in client-side scripts
+        mode: 'no-cors' // 繞過CORS問題
     })
     .then(response => {
         console.log('Success!', response);
-        alert('訊息已成功送出！'); // Notify the user of successful submission
+        alert('訊息已成功送出！'); // 通知用戶提交成功
 
-        // Clear the form
+        // 清空表單
         document.getElementById('name').value = '';
         document.getElementById('email').value = '';
         document.getElementById('message').value = '';
 
-        // Reset hCaptcha
+        // 重置hCaptcha
         hcaptcha.reset();
     })
     .catch(error => {
         console.error('Error!', error.message);
-        alert('訊息傳送失敗，請稍後再試。'); // Notify the user of submission failure
+        alert('訊息傳送失敗，請稍後再試。'); // 通知用戶提交失敗
+    })
+    .finally(() => {
+        // 恢復按鈕狀態
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
     });
 }
 
-// Function to fetch regions data from Google Apps Script
+// 獲取區域數據
 function fetchRegionsData() {
     const regionCardsContainer = document.getElementById('region-cards');
     const appScriptUrl = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
@@ -233,53 +400,83 @@ function fetchRegionsData() {
             return response.json();
         })
         .then(data => {
-            // Clear loading spinner
+            // 清除加載提示
             regionCardsContainer.innerHTML = '';
             
-            // Create region cards from the data
-            data.regions.forEach(region => {
-                const regionCard = createRegionCard(region);
-                regionCardsContainer.appendChild(regionCard);
-            });
-            
-            // Remove animations for the new cards
-            const newRegionCards = document.querySelectorAll('.region-card');
-            newRegionCards.forEach((card, index) => {
-                card.style.animationDelay = '0s';
-                card.classList.remove('animate-on-scroll');
-                
-                // Remove floating animation
-                clearInterval(); // Clear any animation intervals
-                card.style.transform = 'none';
-            });
+            // 創建區域卡片
+            if (data.regions && data.regions.length > 0) {
+                data.regions.forEach(region => {
+                    const regionCard = createRegionCard(region);
+                    regionCardsContainer.appendChild(regionCard);
+                });
+            } else {
+                // 如果沒有數據，顯示備用卡片
+                createBackupRegionCards(regionCardsContainer);
+            }
         })
         .catch(error => {
             console.error('Error fetching regions data:', error);
-            regionCardsContainer.innerHTML = `
-                <div class="api-error">
-                    <h3><i class="fas fa-exclamation-circle"></i> 無法載入區域資料</h3>
-                    <p>連線至後端系統時發生錯誤，請稍後再試。</p>
-                    <button class="retry-button" onclick="fetchRegionsData()">
-                        <i class="fas fa-redo"></i> 重新嘗試
-                    </button>
-                </div>
-            `;
+            // 顯示錯誤信息並加載備用卡片
+            regionCardsContainer.innerHTML = `<p class="error-message">無法載入區域資料，請稍後再試。</p>`;
+            createBackupRegionCards(regionCardsContainer);
         });
 }
 
-// Function to create a region card element with enhanced design
+// 創建區域卡片
 function createRegionCard(region) {
     const card = document.createElement('div');
     card.className = 'region-card';
     
+    const iconClass = region.icon || 'map-marker-alt'; // 預設圖標
+    const bgColor = region.color || 'linear-gradient(135deg, #4361ee, #3a86ff)'; // 預設顏色
+    
     card.innerHTML = `
-        <div class="region-icon">
-            <i class="fas fa-map-marker-alt"></i>
+        <div class="region-icon" style="background: ${bgColor}">
+            <i class="fas fa-${iconClass}"></i>
         </div>
         <h3>${region.name}</h3>
-        <p>${region.description}</p>
-        <a href="${region.url}" class="btn" target="_blank">前往查詢</a>
+        <p>${region.description || '查詢此區域內的各校分發資訊及落點預測'}</p>
+        <a href="${region.url}" class="btn btn-primary" target="_blank">開始查詢</a>
     `;
     
     return card;
+}
+
+// 創建備用區域卡片
+function createBackupRegionCards(container) {
+    const regions = [
+        {
+            name: '桃聯區查詢',
+            icon: 'map-marker-alt',
+            color: 'linear-gradient(135deg, #4361ee, #3a86ff)',
+            description: '查詢桃園市、新竹縣市的學校分發資訊',
+            url: 'https://tyctw.github.io/'
+        },
+        {
+            name: '彰化區查詢',
+            icon: 'school',
+            color: 'linear-gradient(135deg, #7209b7, #560bad)',
+            description: '查詢彰化縣市的學校分發資訊',
+            url: 'https://cchctw.github.io/'
+        },
+        {
+            name: '中投區查詢',
+            icon: 'landmark',
+            color: 'linear-gradient(135deg, #f72585, #b5179e)',
+            description: '查詢台中市、南投縣的學校分發資訊',
+            url: 'https://ctttw.github.io/'
+        },
+        {
+            name: '高雄區查詢',
+            icon: 'city',
+            color: 'linear-gradient(135deg, #f77f00, #fcbf49)',
+            description: '查詢高雄市的學校分發資訊',
+            url: 'https://khhtw.github.io/'
+        }
+    ];
+    
+    regions.forEach(region => {
+        const card = createRegionCard(region);
+        container.appendChild(card);
+    });
 }
