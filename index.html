@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <nav class="navbar">
@@ -22,6 +23,7 @@
             <ul class="nav-menu">
                 <li><a href="#intro" class="nav-link"><i class="fas fa-info-circle"></i> 簡介</a></li>
                 <li><a href="#features" class="nav-link"><i class="fas fa-star"></i> 特色</a></li>
+                <li><a href="#news" class="nav-link"><i class="fas fa-bullhorn"></i> 最新消息</a></li>
                 <li class="nav-dropdown">
                     <a href="#regions" class="nav-link"><i class="fas fa-map-marked-alt"></i> 區域 <i class="fas fa-chevron-down"></i></a>
                     <div class="nav-dropdown-content">
@@ -37,6 +39,12 @@
                         <a href="https://khhtw.github.io/" class="dropdown-item" target="_blank">
                             <i class="fas fa-city"></i> 高雄區
                         </a>
+                        <a href="https://tyctw.github.io/spare/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-building"></i> 基北區
+                        </a>
+                        <a href="https://tyctw.github.io/spare/" class="dropdown-item" target="_blank">
+                            <i class="fas fa-university"></i> 台南區
+                        </a>
                     </div>
                 </li>
                 <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> 常見問題</a></li>
@@ -51,7 +59,7 @@
     <header class="hero">
         <div class="hero-particles" id="particles-js"></div>
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
                 <h1 class="hero-title">全國會考落點分析</h1>
                 <p class="hero-subtitle">精準分析，助您選擇最適合的理想學校</p>
                 <div class="hero-actions">
@@ -63,7 +71,7 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                 <img src="https://rcpett.vercel.app/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-05-02%20184105.png" alt="會考分析示意圖">
             </div>
         </div>
@@ -74,14 +82,14 @@
 
     <section class="main-content" id="intro">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <span class="section-badge">關於我們</span>
                 <h2 class="section-title">歡迎使用全國會考落點分析系統</h2>
                 <p class="section-description">本系統整合全國各區會考分發資料，提供最精準的落點評估與志願選填建議，協助您做出最佳的升學決策。</p>
             </div>
             
             <div class="service-grid">
-                <div class="service-card">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
@@ -94,7 +102,7 @@
                         <li>模擬不同成績組合的錄取機率</li>
                     </ul>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon">
                         <i class="fas fa-chart-bar"></i>
                     </div>
@@ -107,7 +115,7 @@
                         <li>個人能力與學校需求匹配度評估</li>
                     </ul>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
@@ -120,7 +128,7 @@
                         <li>多元入學管道綜合分析比較</li>
                     </ul>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="service-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
@@ -137,51 +145,97 @@
         </div>
     </section>
 
+    <section class="news-section bg-light" id="news">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">最新消息</span>
+                <h2 class="section-title">最新公告與資訊</h2>
+                <p class="section-description">了解最新的教育政策、升學資訊與系統更新</p>
+            </div>
+
+            <div class="news-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="news-card">
+                    <div class="news-date">
+                        <span class="day">15</span>
+                        <span class="month">7月</span>
+                    </div>
+                    <div class="news-content">
+                        <h3>新增基北區與台南區查詢系統</h3>
+                        <p>我們很高興地宣布，現在已經新增基北區（台北市、新北市、基隆市）與台南區的會考落點分析系統，歡迎使用！</p>
+                        <a href="https://tyctw.github.io/spare/" class="news-link" target="_blank">立即查看 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">
+                        <span class="day">10</span>
+                        <span class="month">7月</span>
+                    </div>
+                    <div class="news-content">
+                        <h3>113年會考落點分析系統更新完成</h3>
+                        <p>113年度各區會考分發結果已更新至系統中，現在您可以使用最新的資料進行落點分析與志願選填參考。</p>
+                        <a href="#regions" class="news-link">查看詳情 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">
+                        <span class="day">05</span>
+                        <span class="month">7月</span>
+                    </div>
+                    <div class="news-content">
+                        <h3>網站改版上線</h3>
+                        <p>全新改版的會考落點分析網站正式上線，提供更好的使用體驗、更準確的分析結果與更完整的學校資訊。</p>
+                        <a href="#features" class="news-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="features-section bg-light" id="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <span class="section-badge">系統特色</span>
                 <h2 class="section-title">我們的服務優勢</h2>
                 <p class="section-description">提供最實用的工具，協助您做出最佳的升學決策</p>
             </div>
 
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>精準分析</h3>
                     <p>根據歷年資料提供精準的落點分析，準確度高達95%以上</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="feature-icon">
                         <i class="fas fa-school"></i>
                     </div>
                     <h3>學校資訊</h3>
                     <p>提供各校詳細資訊與錄取分數，包含校園環境與特色介紹</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
                     <h3>成績模擬</h3>
                     <p>輸入成績立即查看適合的學校選擇，支援多種比序方式</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>行動支援</h3>
                     <p>手機、平板、電腦皆可使用，隨時隨地掌握最新資訊</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="feature-icon">
                         <i class="fas fa-history"></i>
                     </div>
                     <h3>歷年趨勢</h3>
                     <p>分析近年錄取分數變化趨勢，預測未來錄取機率</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -194,13 +248,13 @@
 
     <section class="regions-section" id="regions">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <span class="section-badge">選擇地區</span>
                 <h2 class="section-title">各區落點分析系統</h2>
                 <p class="section-description">選擇您所在的區域，探索該區域的學校與分發資訊</p>
             </div>
 
-            <div class="region-cards" id="region-cards">
+            <div class="region-cards" id="region-cards" data-aos="fade-up" data-aos-delay="200">
                 <!-- Region cards will be dynamically loaded here -->
                 <div class="loading-spinner">
                     <div class="spinner-ring"></div>
@@ -212,13 +266,13 @@
 
     <section class="faq-section bg-light" id="faq">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <span class="section-badge">常見問題</span>
                 <h2 class="section-title">我們的常見問題解答</h2>
                 <p class="section-description">解答您對會考落點分析的常見疑問</p>
             </div>
 
-            <div class="accordion">
+            <div class="accordion" data-aos="fade-up" data-aos-delay="200">
                 <div class="accordion-item">
                     <div class="accordion-header">會考成績如何轉換為積分？</div>
                     <div class="accordion-content">
@@ -263,13 +317,13 @@
 
     <section class="contact-section" id="contact">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <span class="section-badge">取得協助</span>
                 <h2 class="section-title">聯絡我們</h2>
                 <p class="section-description">如果您有任何問題或建議，請隨時與我們聯繫</p>
             </div>
 
-            <div class="contact-container">
+            <div class="contact-container" data-aos="fade-up" data-aos-delay="200">
                 <div class="contact-info">
                     <div class="contact-info-item">
                         <div class="contact-info-icon">
@@ -319,6 +373,7 @@
                         <h3>快速連結</h3>
                         <ul class="footer-links">
                             <li><a href="#intro">系統簡介</a></li>
+                            <li><a href="#news">最新消息</a></li>
                             <li><a href="#features">服務特色</a></li>
                             <li><a href="#regions">區域查詢</a></li>
                             <li><a href="#faq">常見問題</a></li>
@@ -332,6 +387,8 @@
                             <li><a href="https://cchctw.github.io/" target="_blank">彰化區查詢</a></li>
                             <li><a href="https://ctttw.github.io/" target="_blank">中投區查詢</a></li>
                             <li><a href="https://khhtw.github.io/" target="_blank">高雄區查詢</a></li>
+                            <li><a href="https://tyctw.github.io/spare/" target="_blank">基北區查詢</a></li>
+                            <li><a href="https://tyctw.github.io/spare/" target="_blank">台南區查詢</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -368,6 +425,12 @@
         </button>
     </div>
 
+    <div class="dark-mode-decoration">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+
     <div class="quick-access">
         <h3>快速查詢</h3>
         <div class="quick-access-links">
@@ -383,11 +446,18 @@
             <a href="https://khhtw.github.io/" class="quick-access-link" target="_blank">
                 <i class="fas fa-map-marker-alt"></i> 高雄區查詢
             </a>
+            <a href="https://tyctw.github.io/spare/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 基北區查詢
+            </a>
+            <a href="https://tyctw.github.io/spare/" class="quick-access-link" target="_blank">
+                <i class="fas fa-map-marker-alt"></i> 台南區查詢
+            </a>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3350304014189563"
      crossorigin="anonymous"></script>

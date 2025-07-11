@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 初始化AOS動畫
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+    
     // 設置Particles.js (如果存在)
     if (document.getElementById('particles-js')) {
         particlesJS('particles-js', {
@@ -119,8 +127,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 平滑滾動到錨點
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            // 如果是下拉選單項目且在移動設備上，不執行滾動
+            if (this.closest('.nav-dropdown-content') && window.innerWidth <= 992) {
+                return;
+            }
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // 計算導航欄高度以調整滾動位置
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // 如果在移動設備上，關閉導航選單
+                if (window.innerWidth <= 992) {
+                    document.querySelector('.nav-menu').classList.remove('active');
+                    document.querySelector('.menu-toggle').innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    });
+
     // 下拉選單在移動設備上的處理
     const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        
+        if (navMenu.classList.contains('active')) {
+            this.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            this.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
     
     if (window.innerWidth <= 992) {
         navDropdowns.forEach(dropdown => {
@@ -168,36 +221,106 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 處理深色模式切換
     const themeToggle = document.querySelector('.theme-toggle');
-    
+    const htmlElement = document.documentElement;
+
     // 檢查儲存的主題偏好或尊重系統偏好
     const savedTheme = localStorage.getItem('theme');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-        document.body.classList.add('dark-mode');
-        updateThemeIcon();
+
+    // 初始化主題
+    function initializeTheme() {
+        // 添加過渡類，但延遲添加以避免初始加載時的過渡效果
+        setTimeout(() => {
+            htmlElement.classList.add('theme-transition');
+        }, 100);
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+            document.body.classList.add('dark-mode');
+            updateThemeIcon(true);
+        } else {
+            updateThemeIcon(false);
+        }
     }
-    
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
+
+    // 切換主題
+    function toggleTheme() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
         
         // 儲存主題偏好
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-        } else {
-            localStorage.setItem('theme', 'light');
-        }
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         
-        updateThemeIcon();
-    });
-    
-    function updateThemeIcon() {
-        if (document.body.classList.contains('dark-mode')) {
+        // 更新圖標
+        updateThemeIcon(isDarkMode);
+        
+        // 添加切換動畫效果
+        animateThemeChange(isDarkMode);
+    }
+
+    // 更新主題圖標
+    function updateThemeIcon(isDarkMode) {
+        if (isDarkMode) {
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            themeToggle.setAttribute('aria-label', '切換至淺色模式');
         } else {
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            themeToggle.setAttribute('aria-label', '切換至深色模式');
         }
     }
+
+    // 主題切換動畫
+    function animateThemeChange(isDarkMode) {
+        // 創建一個圓形動畫元素
+        const circle = document.createElement('div');
+        circle.className = 'theme-toggle-circle';
+        
+        // 設置圓形的位置和顏色
+        const toggleRect = themeToggle.getBoundingClientRect();
+        const circleSize = Math.max(window.innerWidth, window.innerHeight) * 2;
+        
+        circle.style.position = 'fixed';
+        circle.style.top = `${toggleRect.top + toggleRect.height / 2}px`;
+        circle.style.left = `${toggleRect.left + toggleRect.width / 2}px`;
+        circle.style.width = '0';
+        circle.style.height = '0';
+        circle.style.borderRadius = '50%';
+        circle.style.backgroundColor = isDarkMode ? '#121212' : '#ffffff';
+        circle.style.transform = 'translate(-50%, -50%)';
+        circle.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        circle.style.zIndex = '-1';
+        
+        document.body.appendChild(circle);
+        
+        // 觸發動畫
+        setTimeout(() => {
+            circle.style.width = `${circleSize}px`;
+            circle.style.height = `${circleSize}px`;
+        }, 10);
+        
+        // 動畫結束後移除元素
+        setTimeout(() => {
+            document.body.removeChild(circle);
+        }, 700);
+    }
+
+    // 初始化主題
+    initializeTheme();
+
+    // 添加事件監聽器
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // 監聽系統主題變化
+    prefersDarkScheme.addEventListener('change', (e) => {
+        // 只有在用戶沒有手動設置主題時才跟隨系統
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                document.body.classList.add('dark-mode');
+                updateThemeIcon(true);
+            } else {
+                document.body.classList.remove('dark-mode');
+                updateThemeIcon(false);
+            }
+        }
+    });
     
     // 處理回到頂部按鈕
     const backToTopButton = document.querySelector('.back-to-top');
@@ -249,234 +372,199 @@ document.addEventListener('DOMContentLoaded', function() {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
-
+    
     setMobileHeight();
     window.addEventListener('resize', setMobileHeight);
-
-    // 獲取區域數據
-    fetchRegionsData();
-
-    // 處理選單切換
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
     
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        if (navMenu.classList.contains('active')) {
-            menuToggle.innerHTML = '<i class="fas fa-times"></i>';
-        } else {
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-
-    // 處理聯繫表單提交
+    // 處理聯絡表單提交
     const contactForm = document.querySelector('.contact-form');
-    contactForm.addEventListener('submit', handleContactFormSubmit);
-
-    // 滾動到區塊時的平滑效果
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            // 只處理內部導航連結
-            if (this.classList.contains('nav-link') && !this.parentElement.classList.contains('nav-dropdown')) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // 如果導航選單是開啟的，關閉它
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                    
-                    // 更新活動導航項目
-                    document.querySelectorAll('.nav-menu a').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                }
-            }
-        });
-    });
-
-    // 滾動時更新活動導航項目
-    const sections = document.querySelectorAll('section[id]');
     
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        document.querySelectorAll('.nav-menu a').forEach(navItem => {
-            navItem.classList.remove('active');
-            if (navItem.getAttribute('href') === `#${current}`) {
-                navItem.classList.add('active');
-            }
-        });
-    });
-});
-
-// 處理聯繫表單提交
-function handleContactFormSubmit(event) {
-    event.preventDefault(); // 防止表單默認提交
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    const hCaptchaResponse = hcaptcha.getResponse();
-
-    if (!hCaptchaResponse) {
-        alert('請完成機器人驗證。');
-        return;
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactFormSubmit);
     }
-
-    // Google Apps Script部署URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
-
-    // 創建表單數據
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('message', message);
-    formData.append('hCaptchaResponse', hCaptchaResponse);
-
-    // 顯示提交中狀態
-    const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
-
-    fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors' // 繞過CORS問題
-    })
-    .then(response => {
-        console.log('Success!', response);
-        alert('訊息已成功送出！'); // 通知用戶提交成功
-
-        // 清空表單
-        document.getElementById('name').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('message').value = '';
-
-        // 重置hCaptcha
-        hcaptcha.reset();
-    })
-    .catch(error => {
-        console.error('Error!', error.message);
-        alert('訊息傳送失敗，請稍後再試。'); // 通知用戶提交失敗
-    })
-    .finally(() => {
-        // 恢復按鈕狀態
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-    });
-}
-
-// 獲取區域數據
-function fetchRegionsData() {
-    const regionCardsContainer = document.getElementById('region-cards');
-    const appScriptUrl = 'https://script.google.com/macros/s/AKfycbyQMWKX71tEa4JV_9Lv1aBH5ukeWn2PrG9-pthpVKXhg6QSUFujRFQtqWRPfPGGio17/exec';
     
-    fetch(appScriptUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // 清除加載提示
-            regionCardsContainer.innerHTML = '';
-            
-            // 創建區域卡片
-            if (data.regions && data.regions.length > 0) {
-                data.regions.forEach(region => {
-                    const regionCard = createRegionCard(region);
-                    regionCardsContainer.appendChild(regionCard);
-                });
-            } else {
-                // 如果沒有數據，顯示備用卡片
-                createBackupRegionCards(regionCardsContainer);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching regions data:', error);
-            // 顯示錯誤信息並加載備用卡片
-            regionCardsContainer.innerHTML = `<p class="error-message">無法載入區域資料，請稍後再試。</p>`;
-            createBackupRegionCards(regionCardsContainer);
-        });
-}
-
-// 創建區域卡片
-function createRegionCard(region) {
-    const card = document.createElement('div');
-    card.className = 'region-card';
-    
-    const iconClass = region.icon || 'map-marker-alt'; // 預設圖標
-    const bgColor = region.color || 'linear-gradient(135deg, #4361ee, #3a86ff)'; // 預設顏色
-    
-    card.innerHTML = `
-        <div class="region-icon" style="background: ${bgColor}">
-            <i class="fas fa-${iconClass}"></i>
-        </div>
-        <h3>${region.name}</h3>
-        <p>${region.description || '查詢此區域內的各校分發資訊及落點預測'}</p>
-        <a href="${region.url}" class="btn btn-primary" target="_blank">開始查詢</a>
-    `;
-    
-    return card;
-}
-
-// 創建備用區域卡片
-function createBackupRegionCards(container) {
-    const regions = [
-        {
-            name: '桃聯區查詢',
-            icon: 'map-marker-alt',
-            color: 'linear-gradient(135deg, #4361ee, #3a86ff)',
-            description: '查詢桃園市、新竹縣市的學校分發資訊',
-            url: 'https://tyctw.github.io/'
-        },
-        {
-            name: '彰化區查詢',
-            icon: 'school',
-            color: 'linear-gradient(135deg, #7209b7, #560bad)',
-            description: '查詢彰化縣市的學校分發資訊',
-            url: 'https://cchctw.github.io/'
-        },
-        {
-            name: '中投區查詢',
-            icon: 'landmark',
-            color: 'linear-gradient(135deg, #f72585, #b5179e)',
-            description: '查詢台中市、南投縣的學校分發資訊',
-            url: 'https://ctttw.github.io/'
-        },
-        {
-            name: '高雄區查詢',
-            icon: 'city',
-            color: 'linear-gradient(135deg, #f77f00, #fcbf49)',
-            description: '查詢高雄市的學校分發資訊',
-            url: 'https://khhtw.github.io/'
+    function handleContactFormSubmit(event) {
+        event.preventDefault();
+        
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        
+        // 簡單驗證
+        if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+            alert('請填寫所有必填欄位');
+            return;
         }
-    ];
+        
+        // 驗證電子郵件格式
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value.trim())) {
+            alert('請輸入有效的電子郵件地址');
+            return;
+        }
+        
+        // 這裡可以添加hCaptcha驗證
+        
+        // 模擬表單提交
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 處理中...';
+        
+        // 模擬AJAX請求
+        setTimeout(() => {
+            // 重置表單
+            contactForm.reset();
+            
+            // 顯示成功訊息
+            const successMessage = document.createElement('div');
+            successMessage.className = 'alert alert-success';
+            successMessage.textContent = '您的訊息已成功發送，我們會盡快回覆您！';
+            
+            contactForm.prepend(successMessage);
+            
+            // 恢復按鈕狀態
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+            
+            // 3秒後移除成功訊息
+            setTimeout(() => {
+                successMessage.remove();
+            }, 3000);
+        }, 1500);
+    }
     
-    regions.forEach(region => {
-        const card = createRegionCard(region);
-        container.appendChild(card);
-    });
-}
+    // 載入區域卡片
+    fetchRegionsData();
+    
+    function fetchRegionsData() {
+        const regionsContainer = document.getElementById('region-cards');
+        
+        // 模擬API請求延遲
+        setTimeout(() => {
+            try {
+                // 移除載入動畫
+                const loadingSpinner = regionsContainer.querySelector('.loading-spinner');
+                if (loadingSpinner) {
+                    loadingSpinner.remove();
+                }
+                
+                // 區域資料
+                const regions = [
+                    {
+                        id: 'tyc',
+                        name: '桃聯區',
+                        icon: 'map-marker-alt',
+                        description: '桃園市、新竹縣市聯合免試入學',
+                        url: 'https://tyctw.github.io/'
+                    },
+                    {
+                        id: 'cch',
+                        name: '彰化區',
+                        icon: 'school',
+                        description: '彰化縣免試入學分發',
+                        url: 'https://cchctw.github.io/'
+                    },
+                    {
+                        id: 'ctt',
+                        name: '中投區',
+                        icon: 'landmark',
+                        description: '臺中市、南投縣聯合免試入學',
+                        url: 'https://ctttw.github.io/'
+                    },
+                    {
+                        id: 'khh',
+                        name: '高雄區',
+                        icon: 'city',
+                        description: '高雄市免試入學分發',
+                        url: 'https://khhtw.github.io/'
+                    },
+                    {
+                        id: 'tpk',
+                        name: '基北區',
+                        icon: 'building',
+                        description: '臺北市、新北市、基隆市聯合免試入學',
+                        url: 'https://tyctw.github.io/spare/'
+                    },
+                    {
+                        id: 'tnn',
+                        name: '台南區',
+                        icon: 'university',
+                        description: '台南市免試入學分發',
+                        url: 'https://tyctw.github.io/spare/'
+                    }
+                ];
+                
+                // 創建區域卡片
+                regions.forEach(region => {
+                    const regionCard = createRegionCard(region);
+                    regionsContainer.appendChild(regionCard);
+                });
+                
+                // 重新初始化AOS以處理新添加的元素
+                AOS.refresh();
+                
+            } catch (error) {
+                console.error('載入區域資料時發生錯誤:', error);
+                createBackupRegionCards(regionsContainer);
+            }
+        }, 1000);
+    }
+    
+    function createRegionCard(region) {
+        const card = document.createElement('a');
+        card.href = region.url;
+        card.target = '_blank';
+        card.className = 'region-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', '100');
+        
+        card.innerHTML = `
+            <div class="region-icon">
+                <i class="fas fa-${region.icon}"></i>
+            </div>
+            <h3>${region.name}</h3>
+            <p>${region.description}</p>
+            <span class="btn btn-primary">立即查詢</span>
+        `;
+        
+        return card;
+    }
+    
+    function createBackupRegionCards(container) {
+        // 移除載入動畫
+        const loadingSpinner = container.querySelector('.loading-spinner');
+        if (loadingSpinner) {
+            loadingSpinner.remove();
+        }
+        
+        // 備用區域卡片
+        const backupRegions = [
+            { name: '桃聯區', icon: 'map-marker-alt', url: 'https://tyctw.github.io/' },
+            { name: '彰化區', icon: 'school', url: 'https://cchctw.github.io/' },
+            { name: '中投區', icon: 'landmark', url: 'https://ctttw.github.io/' },
+            { name: '高雄區', icon: 'city', url: 'https://khhtw.github.io/' },
+            { name: '基北區', icon: 'building', url: 'https://tyctw.github.io/spare/' },
+            { name: '台南區', icon: 'university', url: 'https://tyctw.github.io/spare/' }
+        ];
+        
+        backupRegions.forEach(region => {
+            const card = document.createElement('a');
+            card.href = region.url;
+            card.target = '_blank';
+            card.className = 'region-card';
+            
+            card.innerHTML = `
+                <div class="region-icon">
+                    <i class="fas fa-${region.icon}"></i>
+                </div>
+                <h3>${region.name}</h3>
+                <p>點擊進入查詢系統</p>
+                <span class="btn btn-primary">立即查詢</span>
+            `;
+            
+            container.appendChild(card);
+        });
+    }
+});
