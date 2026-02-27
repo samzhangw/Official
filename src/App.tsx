@@ -143,15 +143,18 @@ const FAQItem = ({ faq, index }: { faq: any, index: number }) => {
       <button 
         onClick={() => setIsOpen(!isOpen)} 
         className="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
       >
         <span className="font-bold text-lg text-zinc-900 pr-8">{faq.q}</span>
         <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-zinc-50 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-zinc-100' : ''}`}>
-          <ChevronDown className="w-5 h-5 text-zinc-500" />
+          <ChevronDown className="w-5 h-5 text-zinc-500" aria-hidden="true" />
         </div>
       </button>
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={`faq-answer-${index}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -176,36 +179,41 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] font-sans selection:bg-zinc-200 selection:text-zinc-900 text-zinc-900">
       {/* Navigation */}
-      <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-2xl border-b border-zinc-200/50"
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2.5 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-              <div className="bg-zinc-900 p-1.5 rounded-lg group-hover:scale-105 transition-transform duration-300">
-                <GraduationCap className="w-5 h-5 text-white" />
+      <header>
+        <motion.nav 
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-2xl border-b border-zinc-200/50"
+          aria-label="主要導覽列"
+        >
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center gap-2.5 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} role="button" tabIndex={0} aria-label="回到網頁頂部">
+                <div className="bg-zinc-900 p-1.5 rounded-lg group-hover:scale-105 transition-transform duration-300">
+                  <GraduationCap className="w-5 h-5 text-white" aria-hidden="true" />
+                </div>
+                <span className="font-bold text-lg tracking-tight">會考落點分析</span>
               </div>
-              <span className="font-bold text-lg tracking-tight">會考落點分析</span>
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              <button onClick={() => scrollToSection('features')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">系統特色</button>
-              <button onClick={() => scrollToSection('timeline')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">重要日程</button>
-              <button onClick={() => scrollToSection('faq')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">常見問題</button>
-              <button 
-                onClick={() => scrollToSection('regions')}
-                className="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2 rounded-full text-sm font-medium transition-all active:scale-95 shadow-lg shadow-zinc-900/20 hover:shadow-xl hover:shadow-zinc-900/30 hover:-translate-y-0.5"
-              >
-                開始使用
-              </button>
+              <div className="hidden md:flex items-center gap-8">
+                <button onClick={() => scrollToSection('features')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors" aria-label="跳至系統特色區塊">系統特色</button>
+                <button onClick={() => scrollToSection('timeline')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors" aria-label="跳至重要日程區塊">重要日程</button>
+                <button onClick={() => scrollToSection('faq')} className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors" aria-label="跳至常見問題區塊">常見問題</button>
+                <button 
+                  onClick={() => scrollToSection('regions')}
+                  className="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2 rounded-full text-sm font-medium transition-all active:scale-95 shadow-lg shadow-zinc-900/20 hover:shadow-xl hover:shadow-zinc-900/30 hover:-translate-y-0.5"
+                  aria-label="跳至選擇考區區塊"
+                >
+                  開始使用
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      </header>
 
-      {/* Hero Section */}
+      <main>
+        {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-24 overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-40 pointer-events-none">
@@ -698,6 +706,8 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="bg-white py-12 border-t border-zinc-200">
