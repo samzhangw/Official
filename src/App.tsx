@@ -49,55 +49,6 @@ const regions = [
     gradient: 'from-emerald-400 to-teal-500',
     glow: 'hover:shadow-emerald-500/20'
   },
-    { 
-    id: 'hsinchu', 
-    name: '竹苗區', 
-    url: 'https://tyctw.github.io/spare/', 
-    desc: '苗栗縣，新竹市  HelpCircle,
-  Clock,
-  PenTool,
-  Mail,
-  BookOpen,
-  Bell,
-  ListOrdered,
-  MousePointerClick,
-  Trophy
-} from 'lucide-react';
-
-const regions = [
-  { 
-    id: 'taipei', 
-    name: '基北區', 
-    url: 'https://tyctw.github.io/spare/', 
-    desc: '基隆市・台北市・新北市', 
-    gradient: 'from-blue-500 to-indigo-600',
-    glow: 'hover:shadow-blue-500/20',
-    badge: '最大考區'
-  },
-  { 
-    id: 'taoyuan', 
-    name: '桃聯區', 
-    url: 'https://tyctw.github.io/', 
-    desc: '桃園市・連江縣', 
-    gradient: 'from-cyan-400 to-blue-500',
-    glow: 'hover:shadow-cyan-500/20'
-  },
-  { 
-    id: 'taichung', 
-    name: '中投區', 
-    url: 'https://ctttw.github.io/', 
-    desc: '台中市・南投縣', 
-    gradient: 'from-emerald-400 to-teal-500',
-    glow: 'hover:shadow-emerald-500/20'
-  },
-    { 
-    id: 'hsinchu', 
-    name: '竹苗區', 
-    url: 'https://tyctw.github.io/spare/', 
-    desc: '新竹市・新竹縣・苗栗縣', 
-    gradient: 'from-emerald-400 to-teal-500',
-    glow: 'hover:shadow-emerald-500/20'
-  },
   { 
     id: 'changhua', 
     name: '彰化區', 
@@ -114,6 +65,16 @@ const regions = [
     gradient: 'from-rose-400 to-red-500',
     glow: 'hover:shadow-rose-500/20'
   },
+  
+    { 
+    id: 'hsinchu', 
+    name: '竹苗區', 
+    url: 'https://tyctw.github.io/spare/', 
+    desc: '新竹市・新竹縣・苗栗縣', 
+    gradient: 'from-rose-400 to-red-500',
+    glow: 'hover:shadow-rose-500/20'
+  },
+  
   { 
     id: 'kaohsiung', 
     name: '高雄區', 
