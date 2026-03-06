@@ -65,8 +65,7 @@ const regions = [
     gradient: 'from-rose-400 to-red-500',
     glow: 'hover:shadow-rose-500/20'
   },
-  
-    { 
+  { 
     id: 'hsinchu', 
     name: '竹苗區', 
     url: 'https://tyctw.github.io/spare/', 
@@ -74,7 +73,6 @@ const regions = [
     gradient: 'from-rose-400 to-red-500',
     glow: 'hover:shadow-rose-500/20'
   },
-  
   { 
     id: 'kaohsiung', 
     name: '高雄區', 
@@ -149,7 +147,7 @@ const features = [
 ];
 
 const stats = [
-  { value: '7大區', label: '涵蓋全台就學區', icon: <Map className="w-6 h-6 text-amber-400" /> },
+  { value: '12大區', label: '涵蓋全台就學區', icon: <Map className="w-6 h-6 text-amber-400" /> },
   { value: '115年', label: '最新比序規則', icon: <LineChart className="w-6 h-6 text-indigo-400" /> },
   { value: '免註冊', label: '保護隱私安全', icon: <Shield className="w-6 h-6 text-emerald-400" /> },
   { value: '100%', label: '完全免費使用', icon: <Award className="w-6 h-6 text-rose-400" /> },
@@ -386,61 +384,70 @@ export default function App() {
               className="hidden md:flex items-center gap-2 text-sm font-bold text-zinc-600 bg-white px-5 py-3 rounded-full border border-zinc-200 shadow-sm"
             >
               <Map className="w-5 h-5 text-indigo-500" />
-              涵蓋全台六大就學區
+              涵蓋全台十二大就學區
             </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {regions.map((region, index) => (
-              <motion.a
-                href={region.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={region.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.7, 
-                  delay: index * 0.1, 
-                  ease: [0.22, 1, 0.36, 1] 
-                }}
-                className={`group relative h-[280px] rounded-[2rem] p-8 flex flex-col justify-between overflow-hidden bg-white border border-zinc-200 transition-all duration-500 hover:-translate-y-2 hover:border-zinc-300 shadow-sm ${region.glow}`}
-              >
-                {/* Hover Gradient Orb */}
-                <div className={`absolute -bottom-24 -right-24 w-64 h-64 rounded-full bg-gradient-to-br ${region.gradient} opacity-0 group-hover:opacity-[0.08] blur-3xl transition-opacity duration-700`}></div>
-                
-                {/* Top Section */}
-                <div className="flex justify-between items-start relative z-10">
-                  <div>
-                    {region.badge && (
-                      <span className="inline-block px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-4 border border-indigo-100">
-                        {region.badge}
-                      </span>
+            {regions.map((region, index) => {
+              const isComingSoon = region.badge === '待上線';
+              
+              return (
+                <motion.a
+                  href={isComingSoon ? undefined : region.url}
+                  target={isComingSoon ? undefined : "_blank"}
+                  rel={isComingSoon ? undefined : "noopener noreferrer"}
+                  onClick={(e) => { if(isComingSoon) e.preventDefault(); }}
+                  key={region.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.7, 
+                    delay: index * 0.1, 
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  className={`group relative h-[280px] rounded-[2rem] p-8 flex flex-col justify-between overflow-hidden bg-white border border-zinc-200 transition-all duration-500 ${isComingSoon ? 'cursor-default' : 'hover:-translate-y-2 hover:border-zinc-300'} shadow-sm ${region.glow || ''}`}
+                >
+                  {/* Hover Gradient Orb */}
+                  {!isComingSoon && (
+                    <div className={`absolute -bottom-24 -right-24 w-64 h-64 rounded-full bg-gradient-to-br ${region.gradient} opacity-0 group-hover:opacity-[0.08] blur-3xl transition-opacity duration-700`}></div>
+                  )}
+                  
+                  {/* Top Section */}
+                  <div className="flex justify-between items-start relative z-10">
+                    <div>
+                      {region.badge && (
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-4 border ${isComingSoon ? 'bg-zinc-100 text-zinc-500 border-zinc-200' : 'bg-indigo-50 text-indigo-600 border-indigo-100'}`}>
+                          {region.badge}
+                        </span>
+                      )}
+                      <h3 className={`text-3xl font-black text-zinc-900 tracking-tight mb-2 ${isComingSoon ? '' : 'group-hover:text-indigo-950'} transition-colors duration-300`}>
+                        {region.name}
+                      </h3>
+                      <p className="text-zinc-500 font-medium">{region.desc}</p>
+                    </div>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-500 shadow-sm ${isComingSoon ? 'bg-zinc-50 border-zinc-200 text-zinc-400' : 'bg-zinc-50 border-zinc-200 text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white group-hover:scale-110 group-hover:-rotate-12'}`}>
+                      {isComingSoon ? <Clock className="w-5 h-5" /> : <ArrowUpRight className="w-6 h-6" />}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom Section / Abstract Decoration */}
+                  <div className="relative z-10 flex items-end justify-between mt-auto">
+                    <div className={`font-black text-6xl tracking-tighter transition-colors duration-500 ${isComingSoon ? 'text-zinc-100' : 'text-zinc-100 group-hover:text-zinc-200'}`}>
+                      {region.id.substring(0, 3).toUpperCase()}
+                    </div>
+                    {!isComingSoon && (
+                      <div className="flex gap-1.5 mb-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-100"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-200"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-300"></div>
+                      </div>
                     )}
-                    <h3 className="text-3xl font-black text-zinc-900 tracking-tight mb-2 group-hover:text-indigo-950 transition-colors duration-300">
-                      {region.name}
-                    </h3>
-                    <p className="text-zinc-500 font-medium">{region.desc}</p>
                   </div>
-                  <div className="w-12 h-12 rounded-full bg-zinc-50 flex items-center justify-center border border-zinc-200 text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500 shadow-sm">
-                    <ArrowUpRight className="w-6 h-6" />
-                  </div>
-                </div>
-                
-                {/* Bottom Section / Abstract Decoration */}
-                <div className="relative z-10 flex items-end justify-between mt-auto">
-                  <div className="text-zinc-100 font-black text-6xl tracking-tighter group-hover:text-zinc-200 transition-colors duration-500">
-                    {region.id.substring(0, 3).toUpperCase()}
-                  </div>
-                  <div className="flex gap-1.5 mb-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-100"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-200"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-200 group-hover:bg-zinc-400 transition-colors duration-300 delay-300"></div>
-                  </div>
-                </div>
-              </motion.a>
-            ))}
+                </motion.a>
+              );
+            })}
           </div>
         </div>
       </section>
