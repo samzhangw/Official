@@ -104,7 +104,7 @@ const features = [
 ];
 
 const stats = [
-  { value: '6大區', label: '涵蓋全台就學區', icon: <Map className="w-6 h-6 text-amber-400" /> },
+  { value: '7大區', label: '涵蓋全台就學區', icon: <Map className="w-6 h-6 text-amber-400" /> },
   { value: '115年', label: '最新比序規則', icon: <LineChart className="w-6 h-6 text-indigo-400" /> },
   { value: '免註冊', label: '保護隱私安全', icon: <Shield className="w-6 h-6 text-emerald-400" /> },
   { value: '100%', label: '完全免費使用', icon: <Award className="w-6 h-6 text-rose-400" /> },
