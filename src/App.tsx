@@ -83,6 +83,51 @@ const regions = [
     gradient: 'from-violet-400 to-purple-500',
     glow: 'hover:shadow-violet-500/20'
   },
+  { 
+    id: 'yilan', 
+    name: '宜蘭區', 
+    url: '#', 
+    desc: '宜蘭縣', 
+    gradient: 'from-slate-300 to-slate-400',
+    glow: '',
+    badge: '待上線'
+  },
+  { 
+    id: 'chiayi', 
+    name: '嘉義區', 
+    url: '#', 
+    desc: '嘉義市・嘉義縣', 
+    gradient: 'from-zinc-300 to-zinc-400',
+    glow: '',
+    badge: '待上線'
+  },
+  { 
+    id: 'yunlin', 
+    name: '雲林區', 
+    url: '#', 
+    desc: '雲林縣', 
+    gradient: 'from-stone-300 to-stone-400',
+    glow: '',
+    badge: '待上線'
+  },
+  { 
+    id: 'pingtung', 
+    name: '屏東區', 
+    url: '#', 
+    desc: '屏東縣', 
+    gradient: 'from-gray-300 to-gray-400',
+    glow: '',
+    badge: '待上線'
+  },
+  { 
+    id: 'hualien', 
+    name: '花蓮區', 
+    url: '#', 
+    desc: '花蓮縣', 
+    gradient: 'from-neutral-300 to-neutral-400',
+    glow: '',
+    badge: '待上線'
+  }
 ];
 
 const features = [
