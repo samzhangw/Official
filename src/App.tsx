@@ -36,7 +36,7 @@ const regions = [
   { 
     id: 'taoyuan', 
     name: '桃聯區', 
-    url: 'https://tyctw.github.io/', 
+    url: 'https://tyctw.github.io/spare/', 
     desc: '桃園市・連江縣', 
     gradient: 'from-cyan-400 to-blue-500',
     glow: 'hover:shadow-cyan-500/20'
@@ -44,7 +44,7 @@ const regions = [
   { 
     id: 'taichung', 
     name: '中投區', 
-    url: 'https://ctttw.github.io/', 
+    url: 'https://tyctw.github.io/spare/', 
     desc: '台中市・南投縣', 
     gradient: 'from-emerald-400 to-teal-500',
     glow: 'hover:shadow-emerald-500/20'
@@ -52,7 +52,7 @@ const regions = [
   { 
     id: 'changhua', 
     name: '彰化區', 
-    url: 'https://cchctw.github.io/', 
+    url: 'https://tyctw.github.io/spare/', 
     desc: '彰化縣', 
     gradient: 'from-amber-400 to-orange-500',
     glow: 'hover:shadow-amber-500/20'
@@ -76,7 +76,7 @@ const regions = [
   { 
     id: 'kaohsiung', 
     name: '高雄區', 
-    url: 'https://khhtw.github.io/', 
+    url: 'https://tyctw.github.io/spare/', 
     desc: '高雄市', 
     gradient: 'from-violet-400 to-purple-500',
     glow: 'hover:shadow-violet-500/20'
